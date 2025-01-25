@@ -17,18 +17,20 @@ import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.Velocity;
 import edu.wpi.first.units.measure.Voltage;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.util.PhoenixUtil;
 
 public class FingeysIOTalonFX implements FingeysIO {
   public VoltageOut Request;
   public TalonFX Motor;
 
-  private final FingeysConstants m_Constants;
+  //private final FingeysConstants m_Constants;
 
-  public FingeysIOTalonFX(int id,FingeysConstants constants) {
-    m_Constants = constants;
+  public FingeysIOTalonFX(int id) {
     Motor = new TalonFX(id);
     Request = new VoltageOut(0.0);
+
+    Motor.setControl(Request);
     configureTalons();
   }
 
@@ -59,5 +61,12 @@ public class FingeysIOTalonFX implements FingeysIO {
   @Override
   public void stop() {
     Motor.setControl(new StaticBrake());
+  }
+
+  @Override
+  public void log() {
+    SmartDashboard.putNumber("Fingeys/Voltage", Motor.getMotorVoltage().getValueAsDouble());
+    SmartDashboard.putString("Fingeys/Request", Motor.getAppliedControl().toString());
+    SmartDashboard.putNumber("Fingeys/Position", Motor.getPosition().getValueAsDouble());
   }
 }

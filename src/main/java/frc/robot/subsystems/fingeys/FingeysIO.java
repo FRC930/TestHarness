@@ -38,4 +38,6 @@ public interface FingeysIO {
   public void updateInputs(FingeysInputs input);
 
   public void stop();
+
+  public void log();
 }

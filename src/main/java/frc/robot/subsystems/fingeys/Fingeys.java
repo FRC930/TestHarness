@@ -26,6 +26,7 @@ public class Fingeys extends SubsystemBase {
     loggedfingeys.timestamp = 0.0;
     loggedfingeys.torqueCurrent = Amps.mutable(0);
     loggedfingeys.voltageSetPoint = Volts.mutable(0);
+    loggedfingeys.voltage = Volts.mutable(0);
   }
 // negetive voltage = eject
 // positive voltage = intake
@@ -46,5 +47,7 @@ public class Fingeys extends SubsystemBase {
   public void periodic() {
     m_FingeysIO.updateInputs(loggedfingeys);
     Logger.processInputs("RobotState/Fingeys", loggedfingeys);
+    m_FingeysIO.log();
+    
   }
 }
