@@ -21,8 +21,8 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    m_DriverController.a().onTrue(fingeys.getNewSetVoltsCommand(2)).onFalse(fingeys.getNewSetVoltsCommand(0));
-    m_DriverController.b().onTrue(fingeys.getNewSetVoltsCommand(-2)).onFalse(fingeys.getNewSetVoltsCommand(0));
+    m_DriverController.a().onTrue(fingeys.getNewSetVoltsCommand(8)).onFalse(fingeys.getNewSetVoltsCommand(6));
+    m_DriverController.b().onTrue(fingeys.getNewSetVoltsCommand(-8)).onFalse(fingeys.getNewSetVoltsCommand(6));
   }
 
   public Command getAutonomousCommand() {
