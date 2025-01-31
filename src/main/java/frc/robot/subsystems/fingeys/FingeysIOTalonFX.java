@@ -26,9 +26,9 @@ public class FingeysIOTalonFX implements FingeysIO {
   private void configureTalons() {
     TalonFXConfiguration cfg = new TalonFXConfiguration();
     cfg.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-    cfg.CurrentLimits.StatorCurrentLimit = 0;
+    cfg.CurrentLimits.StatorCurrentLimit = 20.00;
     cfg.CurrentLimits.StatorCurrentLimitEnable = true;
-    cfg.CurrentLimits.SupplyCurrentLimit = 0;
+    cfg.CurrentLimits.SupplyCurrentLimit = 20.00;
     cfg.CurrentLimits.SupplyCurrentLimitEnable = true;
     PhoenixUtil.tryUntilOk(5, () -> Motor.getConfigurator().apply(cfg));
   }
