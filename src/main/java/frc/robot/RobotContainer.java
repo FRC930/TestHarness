@@ -7,20 +7,24 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.subsystems.ServoSubsystem;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.intake.IntakeIOTalonFX;
 
 public class RobotContainer {
   private final Intake intake;
+  private final ServoSubsystem servoSubsystem;
   private static CommandXboxController m_DriverController = new CommandXboxController(0);
   public RobotContainer() {
-    intake = new Intake(new IntakeIOTalonFX(15, 98) );
+    intake = new Intake(new IntakeIOTalonFX(15, 98));
+    servoSubsystem = new ServoSubsystem(1);
     configureBindings();
   }
 
   private void configureBindings() {
     m_DriverController.a().onTrue(intake.getNewSetVoltsCommand(2)).onFalse(intake.getNewSetVoltsCommand(0));
     m_DriverController.b().onTrue(intake.getNewSetVoltsCommand(-2)).onFalse(intake.getNewSetVoltsCommand(0));
+    m_DriverController.x().onTrue(servoSubsystem.getNewSetAngleCommand(90)).onFalse(servoSubsystem.getNewSetAngleCommand(0));
   }
 
   public Command getAutonomousCommand() {
