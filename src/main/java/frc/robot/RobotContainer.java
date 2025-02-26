@@ -7,13 +7,14 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.subsystems.fingeys.AlgaeEndEffectorIONova;
 import frc.robot.subsystems.fingeys.Fingeys;
 import frc.robot.subsystems.fingeys.FingeysIO;
 import frc.robot.subsystems.fingeys.FingeysIOTalonFX;
 
 
 public class RobotContainer {
-  private final Fingeys fingeys = new Fingeys(new FingeysIOTalonFX(6));
+  private final Fingeys fingeys = new Fingeys(new AlgaeEndEffectorIONova(15));
 
   private static CommandXboxController m_DriverController = new CommandXboxController(0);
   public RobotContainer() {
@@ -21,8 +22,8 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    m_DriverController.a().onTrue(fingeys.getNewSetVoltsCommand(8)).onFalse(fingeys.getNewSetVoltsCommand(6));
-    m_DriverController.b().onTrue(fingeys.getNewSetVoltsCommand(-8)).onFalse(fingeys.getNewSetVoltsCommand(6));
+    m_DriverController.a().onTrue(fingeys.getNewSetVoltsCommand(2)).onFalse(fingeys.getNewSetVoltsCommand(0.0));
+    m_DriverController.b().onTrue(fingeys.getNewSetVoltsCommand(-2)).onFalse(fingeys.getNewSetVoltsCommand(0.0));
   }
 
   public Command getAutonomousCommand() {
