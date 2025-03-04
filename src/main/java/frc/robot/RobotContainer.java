@@ -6,11 +6,15 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.subsystems.canrangetest.CANRangeTest;
 
 public class RobotContainer {
 
   private static CommandXboxController m_DriverController = new CommandXboxController(0);
+
+  private CANRangeTest tester = new CANRangeTest(17);
   public RobotContainer() {
     configureBindings();
   }
