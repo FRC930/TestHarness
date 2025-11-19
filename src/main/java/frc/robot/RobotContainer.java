@@ -4,18 +4,26 @@
 
 package frc.robot;
 
+import com.ctre.phoenix6.controls.ColorFlowAnimation;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class RobotContainer {
-
   private static CommandXboxController m_DriverController = new CommandXboxController(0);
+  private LED led;
   public RobotContainer() {
+    led = new LED();
     configureBindings();
+    led.setColor(0, 7, colors.Green);
   }
 
-  private void configureBindings() {}
+  private void configureBindings() {
+    m_DriverController.a().onTrue(new InstantCommand(() -> {led.setAnimation(new ColorFlowAnimation(0, 7));}));
+    m_DriverController.b().onTrue(new InstantCommand(() -> {led.setColor(0, 7, colors.Red);}));
+  }
 
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");
