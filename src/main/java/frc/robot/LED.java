@@ -53,6 +53,9 @@ public class LED {
     }
 
     public void setColor(int firstLED, int lastLED, colors color){
+        for (int i = 0; i < 8; ++i) {
+            m_candle.setControl(new EmptyAnimation(i));
+        }
         if (color == colors.eGreen){
             m_candle.setControl(new SolidColor(firstLED, lastLED).withColor(kGreen));
         }
