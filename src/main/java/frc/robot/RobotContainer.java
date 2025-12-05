@@ -22,14 +22,14 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    LED led = new LED();
+    LED led = new LED( 1, "rio");
     m_DriverController.y().onTrue(new InstantCommand(() -> {led.setColor(0, 7, colors.eRed);}));
     m_DriverController.x().onTrue(new InstantCommand(() -> {led.setColor(0, 7, colors.eViolet);}));
     m_DriverController.b().onTrue(new InstantCommand(() -> {led.setColor(0, 7, colors.eGreen);}));
     m_DriverController.a().onTrue(new InstantCommand(() -> {led.setColor(0, 7, colors.eWhite);}));
     m_DriverController.povUp().onTrue(new InstantCommand(() -> {led.setAnimation(new ColorFlowAnimation(0, 7));}));
-    m_DriverController.povDown().onTrue(new InstantCommand(() -> {led.setAnimation(new FireAnimation(0, 7));}));
-    m_DriverController.povLeft().onTrue(new InstantCommand(() -> {led.setAnimation(new RainbowAnimation(0, 7));}));
+    m_DriverController.povDown().onTrue(new InstantCommand(() -> {led.setAnimation(new FireAnimation(0, 7).withFrameRate(120).withBrightness(2.0));}));
+    m_DriverController.povLeft().onTrue(new InstantCommand(() -> {led.setAnimation(new RainbowAnimation(0, 7).withFrameRate(200));}));
     m_DriverController.povRight().onTrue(new InstantCommand(() -> {led.setAnimation(new LarsonAnimation(0, 7));}));
   }
 

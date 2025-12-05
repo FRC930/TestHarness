@@ -41,11 +41,12 @@ public class LED {
   private static final int kSlot0StartIdx = 0;
   private static final int kSlot0EndIdx = 7;
 
-  private final CANdle m_candle = new CANdle(1, "rio");
+  private final CANdle m_candle;
   
 
-    public LED(){
+    public LED(int id, String canbus){
      /* Configure CANdle */
+     m_candle = new CANdle(id, canbus);
      CANdleConfiguration cfg = new CANdleConfiguration();
      /* set the LED strip type and brightness */
      cfg.LED.StripType = StripTypeValue.GRB;
