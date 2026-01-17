@@ -21,4 +21,10 @@ public class LauncherIOSim implements LauncherIO {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'setIndexerTarget'");
   }
+
+  @Override
+  public void updateInputs(LauncherInputs input) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'updateInputs'");
+  }
 }

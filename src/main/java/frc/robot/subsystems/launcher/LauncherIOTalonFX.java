@@ -60,4 +60,11 @@ private void configureTalons() {
   public void setIndexerTarget(Voltage target) {
     indexerMotor.set(target.in(Volts));
   }
+  @Override
+  public void updateInputs(LauncherInputs inputs) {
+    inputs.launcherAngularVelocity.mut_replace(launcherMotor.getVelocity().getValue());
+    inputs.launcherVoltage.mut_replace(launcherMotor.getMotorVoltage().getValue());
+    inputs.indexerAngularVelocity.mut_replace(indexerMotor.getVelocity().getValue());
+    inputs.indexerVoltage.mut_replace(indexerMotor.getMotorVoltage().getValue());
+  }
 }
