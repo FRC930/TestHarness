@@ -30,7 +30,19 @@ private final LauncherSubsystem launcher;
   }
 
   private void configureBindings() {
-
+    m_DriverController
+        .b()
+        .whileTrue(
+            new InstantCommand(
+                () -> {
+                  launcher.setLaunchSpeed(Volts.of(2));
+                  launcher.setIndexerSpeed(Volts.of(2));
+                }))
+                .whileFalse(new InstantCommand(
+                  () -> {
+                    launcher.stop();
+                  }
+                ));
   }
 
   public Command getAutonomousCommand() {
