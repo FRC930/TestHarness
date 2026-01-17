@@ -14,6 +14,8 @@ import frc.robot.subsystems.launcher.LauncherIOTalonFX;
 import frc.robot.subsystems.launcher.LauncherSubsystem;
 import frc.robot.util.CANDef;
 import frc.robot.util.CANDef.CANBus;
+import frc.robot.Subsystems.shooter.Shooter;
+import frc.robot.Subsystems.shooter.ShooterIOTalonFX;
 
 
 public class RobotContainer {
@@ -21,12 +23,18 @@ public class RobotContainer {
 private final LauncherSubsystem launcher;
 
   private static CommandXboxController m_DriverController = new CommandXboxController(0);
+
+  private final Shooter shooter;
+
+  private static CommandXboxController m_DriverController = new CommandXboxController(0);
   public RobotContainer() {
     CANDef.Builder rioCANBuilder = CANDef.builder().bus(CANBus.Rio);
     launcher =
         new LauncherSubsystem(
         new LauncherIOTalonFX(rioCANBuilder.id(19).build(), rioCANBuilder.id(11).build()));
+    shooter = new Shooter(new ShooterIOTalonFX());
     configureBindings();
+
   }
 
   private void configureBindings() {
@@ -43,6 +51,7 @@ private final LauncherSubsystem launcher;
                     launcher.stop();
                   }
                 ));
+    m_DriverController.rightTrigger().whileTrue(new InstantCommand(() -> shooter.shoot(3)));
   }
 
   public Command getAutonomousCommand() {
