@@ -41,7 +41,7 @@ private void configureTalons() {
     configIndexer.CurrentLimits.SupplyCurrentLimitEnable = true;
     configIndexer.Voltage.PeakForwardVoltage = 16.0;
     configIndexer.Voltage.PeakReverseVoltage = 16.0;
-    configIndexer.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+    configIndexer.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     indexerMotor.getConfigurator().apply(configIndexer);
 }
   @Override
