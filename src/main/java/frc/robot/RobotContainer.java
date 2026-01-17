@@ -6,16 +6,20 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.Volts;
 
+import org.littletonrobotics.junction.Logger;
+import org.littletonrobotics.junction.networktables.NT4Publisher;
+
+import com.ctre.phoenix6.CANBus;
+
+import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.launcher.LauncherIOTalonFX;
 import frc.robot.subsystems.launcher.LauncherSubsystem;
-import frc.robot.util.CANDef;
-import frc.robot.util.CANDef.CANBus;
-import frc.robot.Subsystems.shooter.Shooter;
-import frc.robot.Subsystems.shooter.ShooterIOTalonFX;
+import frc.robot.subsystems.shooter.ShooterSubsystem;
+import frc.robot.subsystems.shooter.ShooterIOTalonFX;
 
 
 public class RobotContainer {
@@ -24,15 +28,14 @@ private final LauncherSubsystem launcher;
 
   private static CommandXboxController m_DriverController = new CommandXboxController(0);
 
-  private final Shooter shooter;
+  private final ShooterSubsystem shooter;
 
-  private static CommandXboxController m_DriverController = new CommandXboxController(0);
   public RobotContainer() {
-    CANDef.Builder rioCANBuilder = CANDef.builder().bus(CANBus.Rio);
-    launcher =
-        new LauncherSubsystem(
-        new LauncherIOTalonFX(rioCANBuilder.id(19).build(), rioCANBuilder.id(11).build()));
-    shooter = new Shooter(new ShooterIOTalonFX());
+    CANBus rioCANBus = new CANBus("rio");
+        launcher =
+            new LauncherSubsystem(
+            new LauncherIOTalonFX(19, 11, rioCANBus));
+    shooter = new ShooterSubsystem(new ShooterIOTalonFX(9, rioCANBus));
     configureBindings();
 
   }
@@ -51,7 +54,7 @@ private final LauncherSubsystem launcher;
                     launcher.stop();
                   }
                 ));
-    m_DriverController.rightTrigger().whileTrue(new InstantCommand(() -> shooter.shoot(3)));
+    m_DriverController.rightTrigger().onTrue(new InstantCommand(() -> shooter.shoot(Voltage.ofBaseUnits(3, Volts)))).onFalse(new InstantCommand(() -> shooter.stop()));
   }
 
   public Command getAutonomousCommand() {
