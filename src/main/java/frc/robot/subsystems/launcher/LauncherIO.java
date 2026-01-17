@@ -11,8 +11,10 @@ public interface LauncherIO {
   public static class LauncherInputs {
     public MutAngularVelocity launcherAngularVelocity;
     public MutVoltage launcherVoltage;
+    public MutVoltage launcherSetVoltage;
     public MutAngularVelocity indexerAngularVelocity;
     public MutVoltage indexerVoltage;
+    public MutVoltage indexerSetVoltage;
   }
   public void setLauncherTarget(Voltage target);
 

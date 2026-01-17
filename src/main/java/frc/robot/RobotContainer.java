@@ -6,14 +6,14 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.Volts;
 
+import com.ctre.phoenix6.CANBus;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.launcher.LauncherIOTalonFX;
 import frc.robot.subsystems.launcher.LauncherSubsystem;
-import frc.robot.util.CANDef;
-import frc.robot.util.CANDef.CANBus;
 
 
 public class RobotContainer {
@@ -22,10 +22,10 @@ private final LauncherSubsystem launcher;
 
   private static CommandXboxController m_DriverController = new CommandXboxController(0);
   public RobotContainer() {
-    CANDef.Builder rioCANBuilder = CANDef.builder().bus(CANBus.Rio);
+    CANBus rioCANBus = new CANBus("rio");
     launcher =
         new LauncherSubsystem(
-        new LauncherIOTalonFX(rioCANBuilder.id(19).build(), rioCANBuilder.id(11).build()));
+        new LauncherIOTalonFX(19, 11, rioCANBus));
     configureBindings();
   }
 
